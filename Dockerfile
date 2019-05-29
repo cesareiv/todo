@@ -13,6 +13,6 @@ RUN npm install
 # bundle src
 COPY . .
 
-EXPOSE 808
+EXPOSE 8080
 
 CMD ["npm", "start"]
