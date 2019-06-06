@@ -1,0 +1,34 @@
+version: '3'
+services:
+  nginx:
+    build: nginx
+    image: todo/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - todo_app
+      
+  node-express:
+    build:
+      context: backend
+    image: todo/express
+    ports:
+      - "8080:8080"
+    networks:
+      - todo_app
+
+  node-react:
+    build:
+      context: frontend
+    image: todo/react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/todo-app/src:ro
+    networks:
+      - todo_app
+
+networks:
+  todo_app:
+    driver: bridge

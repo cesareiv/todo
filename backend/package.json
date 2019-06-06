@@ -1,6 +1,7 @@
 {
-    "name": "web_app",
+    "name": "todo_app_be",
     "version": "1.0.0",
+    "private": true,
     "description": "Node.js Docker",
     "author": "Richard Hunter",
     "main": "server.js",
