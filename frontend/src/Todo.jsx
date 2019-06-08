@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-export const TodoList = props => {
-
-    const ToDo = props => {
-        return(
+const ToDo = props => {
+    return(
+        <div>
             <p>{props.title}</p>
-        );
-    }
+            <button onClick={() => props.deleteTodo(props.id)}>done</button>
+        </div>
+    );
+}
+
+
+export const TodoList = props => {
 
     let [todos,setTodos] = useState([]);
     let [newTodo,setNewTodo] = useState("");
@@ -63,7 +67,7 @@ export const TodoList = props => {
         const response = await fetch(`http://localhost/api/v1/todos/${id}`, {
             method: 'DELETE'
         });
-        const body = await response.json();
+        const body = await response;
         if (response.status !== 200) {
             throw Error(body.message);
         }
@@ -77,7 +81,7 @@ export const TodoList = props => {
                 <ul>
                     {todos.map((todo) => (
                         <li>
-                            <ToDo title={todo.title} key={todo.id}/>
+                            <ToDo title={todo.title} key={todo.id} id={todo.id} deleteTodo={deleteTodo}/>
                         </li>
                     ))}
                 </ul>
@@ -91,14 +95,6 @@ export const TodoList = props => {
                         <input placeholder="Task" value={newTodo} onChange={handleChange}/>
                         <button type="submit"> Add Task </button>
                     </form>
-                    <form onSubmit={e => {
-    	                e.preventDefault();
-                        deleteTodo(selected);
-                    }}>
-                        <input placeholder="Task" value={selected} onChange={selectTodo}/>
-                        <button type="submit"> Delete Task </button>
-                    </form>
-                    
                 </div>
             </div>
         </div>

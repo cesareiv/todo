@@ -56,7 +56,7 @@ app.delete('/api/v1/todos/:id', function(req, res) {
     let id = parseInt(req.params.id);
     if (todos.filter(todo => todo.id == id).length !== 0){
         todos = todos.filter(todo => todo.id !== id);
-        res.status(200, 'task deleted').send();
+        res.status(200).json({"message":"deleted"});
     }else {
         res.status(404, 'task not found').send();
     }
