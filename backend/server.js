@@ -13,7 +13,8 @@ const router = express.Router();
 const path_images = __dirname + '/images/';
 const path_public = __dirname + '/public/';
 
-let todos = [{'id':1, 'title':'take out trash'}, {'id':2, 'title':'write app'}];
+let todos = [];
+let ids = new Set([]);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,11 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// create a GET route
+// test route
 app.get('/api/v1/express', (req, res) => {
-    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
+    res.send({ express: 'hello world' });
 });
-
 
 // get all todos
 app.get('/api/v1/todos', function(req, res) {
@@ -35,17 +35,19 @@ app.get('/api/v1/todos', function(req, res) {
 // post a todo
 app.post('/api/v1/todos', function(req, res) {
     let newTodo=req.body;
-    newTodo.id = todos.length + 1;
+    newTodo.id = ids.size + 1;
     todos.push(newTodo);
+    ids.add(newTodo.id);
     res.status(201).json(newTodo);
 });
 
 // update a todo
 app.put('/api/v1/todos/:id', function(req, res) {
-    let id = req.params.id;
-    if (todos[id-1]) {
-        todos[id-1] = req.body;
-        res.status(204).send();
+    let id = parseInt(req.params.id);
+    let index = todos.findIndex( todo => todo.id === id);
+    if (index > -1){
+        todos[index].title = req.body.title;
+        res.status(204).json(todos);
     }else {
         res.status(404, 'task not found').send();
     }
