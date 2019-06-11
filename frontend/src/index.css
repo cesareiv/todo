@@ -1,53 +1,125 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
+
+body, .todolist, .todolist input, .todolist li {
+  font-family: "Lora", serif;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.todolist {
+  text-align: center; 
+  border: 1px black solid;
+  font-size: 1em;
+  width: 450px;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+.todolist ul{
+  list-style: none;
+  padding-left: 0;
+  font-size: 1em;
 }
 
-li, input {
-  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
-  border-bottom: 1px solid #ccc;
-
+.todolist li{
+  font-size: 1em;
 }
 
-li:last-child {
+/*.todolist input{
+  font-size: 1em;
+  background: transparent;
+  border:none;
+  border-bottom: 1px solid black;
+}*/
+
+.todo_text {
+  width: 380px;
+  margin-left: 10px;
+  text-align: left;
+  font-size: 1em;
+  box-shadow: none;
   border: none;
-}
- 
-li a {
-  text-decoration: none;
-  color: #000;
-  display: block;
-  width: 200px;
- 
-  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
-  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
-  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
-  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
-  transition: font-size 0.3s ease, background-color 0.3s ease;
-}
- 
-li a:hover {
-  /*font-size: 30px;*/
-  background: #f6f6f6;
+  font-family: "Lora";
+  border-radius: 3px;
+  background-color: transparent;
 }
 
-.todolist_main {
-  text-align: center;
-  margin: auto;
-  width: 50%;
+.todo_item {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin: 8px;
+  justify-content: flex-start;
+  border-radius: 25px;
+  font-size: 1.2em;
+  font-family: "Lora";
+  background-color: #bee0d1;
+  
+}
+
+.todo_update_input {
+  margin-left: 10px;
+  padding:6px;
+  text-align: left;
+  font-size: 1em;
+  box-shadow: none;
+  border: none;
+  font-family: "Lora";
+  border-radius: 25px;
+  background-color: white;
+
+}
+
+.todo_check{
+}
+
+.todo_update{ 
+  visibility: hidden;
+}
+
+.circle{
+  border: 1px solid #aaa;
+  box-shadow: inset 1px 1px 3px #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  position: relative;
+  margin: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  background: #aaaaaa4f;
+}
+.circle:hover{
+  background: radial-gradient(#aaa, #fff);
+}
+.circle:active{
+  background: #6363634f;
+}
+.circle:before,
+.circle:after{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+}
+.circle.plus:before,
+.circle.plus:after {
+    background:green;
+    box-shadow: 1px 1px 1px #ffffff9e;
+}
+.circle.plus:before{
+    width: 2px;
+    margin: 3px auto;
+}
+.circle.plus:after{
+    margin: auto 3px;
+    height: 2px;
+    box-shadow: none;
+}
+
+/* CROSS */
+.circle.cross:after,
+.circle.cross:before{
+    background: #000;
+    margin: auto 4px;
+    height: 2px;
+    transform:rotateZ(45deg);
+    box-shadow: 0px 1px 1px #ffffff9e;
+}
+.circle.cross:after{
+    transform:rotateZ(-45deg);
 }

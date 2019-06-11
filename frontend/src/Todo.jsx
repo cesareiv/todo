@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+//COPYRIGHT 2019 RICHARD HUNTER
+//GNU LICENSE
 
-const ToDo = props => {
+import React, { useState, useEffect, useRef } from 'react';
+
+const ToDo = React.forwardRef((props, ref) => {
     let todoItem;
     if (props.selected === props.id) {
         todoItem = 
@@ -8,33 +11,44 @@ const ToDo = props => {
                 e.preventDefault();
                 props.updateTodo(props.id, props.newTodo); 
             }}>
-                <input placeholder={props.title} value={props.newTodo} onChange={props.handleChange}/>
-                <button type="submit"> Update Task </button>
+                <input
+                    className="todo_update_input" 
+                    placeholder={props.title} 
+                    value={props.newTodo} 
+                    onFocus={e=>e.target.select()} 
+                    autoFocus="true" 
+                    ref={ref} 
+                    onChange={props.handleChange}
+                />
+                <button type="submit" className="todo_update"> Update Task </button>
             </form>
     } else {
         todoItem = 
             <div>
-                <a onClick={(e) => props.selectTodo(e, props.id)}>{props.title}</a>
-                 <button onClick={() => props.deleteTodo(props.id)}>done</button>
-
+                <button className="todo_text" onClick={(e) => props.selectTodo(e, props.id)}>{props.title}</button>
+                <span className="todo_check">    
+                    <button className="circle cross" onClick={() => props.deleteTodo(props.id)}></button>
+                </span>
             </div>
     }
     return(
-        <div>
+        <div className="todo_item">
             {todoItem}
         </div>
     );
-}
+});
 
 export const TodoList = props => {
 
     let [todos,setTodos] = useState([]);
     let [newTodo,setNewTodo] =  useState("");
     let [selected,setSelected] = useState(0);
+    const textInput = useRef(null);
     
     useEffect(
         () => {
             getTodos();
+            textInput.current.focus();
         },[]
     );
 
@@ -45,7 +59,10 @@ export const TodoList = props => {
 
     const selectTodo = (event, id) => {
         event.preventDefault();
+        let index = todos.findIndex(todo => todo.id === id);
         setSelected(id);
+        setNewTodo(todos[index].title);
+
     }
 
     // Fetches our GET /todos route from the Express server
@@ -77,28 +94,36 @@ export const TodoList = props => {
             }
             setNewTodo("");
             getTodos();
+            textInput.current.focus();
+            
         }else {
+            textInput.current.focus();
             return;
         }
     };
 
     // UPDATE a todo
     async function updateTodo(id, title) {
-        let payload = JSON.stringify({'title':title});
-        const response = await fetch(`http://localhost/api/v1/todos/${id}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-            body: payload
-        });
-        const body = await response;
-        if (response.status !==204) {
-            throw Error(body.message);
+        if (title.length > 0) {
+            let payload = JSON.stringify({'title':title});
+            const response = await fetch(`http://localhost/api/v1/todos/${id}`, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                body: payload
+            });
+            const body = await response;
+            if (response.status !==204) {
+                throw Error(body.message);
+            }
+            getTodos();       
+            setSelected(0);
+            setNewTodo("");
+            textInput.current.focus();        
+        }else {
+            return;
         }
-        getTodos();       
-        setSelected(0);
-        setNewTodo("");    
     }
 
     // DELETE a todo
@@ -111,10 +136,11 @@ export const TodoList = props => {
             throw Error(body.message);
         }
         getTodos();
+        textInput.current.focus();
     }
 
     return(
-        <div className="todolist_main">
+        <div className="todolist">
             <h1>Your todo list</h1>
             <div>
                 <ul>
@@ -130,6 +156,7 @@ export const TodoList = props => {
                                 newTodo={newTodo}
                                 handleChange={handleChange}
                                 updateTodo={updateTodo}
+                                ref={textInput}
                             />
                         </li>
                     ))}
@@ -142,8 +169,8 @@ export const TodoList = props => {
     	                e.preventDefault();
                         createTodo(newTodo);
                     }}>
-                        <input placeholder="Task" value={newTodo} onChange={handleChange}/>
-                        <button type="submit"> Add Task </button>
+                        <input placeholder="Task" value={newTodo} ref={textInput} onChange={handleChange}/>
+                        <button type="submit" className="circle plus" />
                     </form>
                     }
                 </div>
