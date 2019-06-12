@@ -2,14 +2,25 @@
 
 body, .todolist, .todolist input, .todolist li {
   font-family: "Lora", serif;
+  
+}
+
+body {
   box-sizing: border-box;
+  background-color: #d2f2f4;
 }
 
 .todolist {
-  text-align: center; 
-  border: 1px black solid;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #f7f6f4;
+  margin: auto; 
+  border: 1px #f7f6f4 solid;
   font-size: 1em;
   width: 450px;
+  -webkit-box-shadow: 0px 3px 10px rgba(0,0,0,0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    0px 10px 10px rgba(0,0,0,0.8);  /* Firefox 3.5 - 3.6 */
+  box-shadow:         0px 10px 10px rgba(0,0,0,0.8); 
 }
 
 .todolist ul{
@@ -50,7 +61,7 @@ body, .todolist, .todolist input, .todolist li {
   border-radius: 25px;
   font-size: 1.2em;
   font-family: "Lora";
-  background-color: #bee0d1;
+  background-color: white;
   
 }
 
@@ -63,7 +74,7 @@ body, .todolist, .todolist input, .todolist li {
   border: none;
   font-family: "Lora";
   border-radius: 25px;
-  background-color: white;
+  background-color: #f7f6f4;
 
 }
 
