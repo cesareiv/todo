@@ -170,7 +170,7 @@ export const TodoList = props => {
                         createTodo(newTodo);
                     }}>
                         <input placeholder="Task" value={newTodo} ref={textInput} onChange={handleChange}/>
-                        <button type="submit" className="circle plus" />
+                        <button type="submit" className="add_todo_btn" />
                     </form>
                     }
                 </div>

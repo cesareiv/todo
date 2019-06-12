@@ -1,26 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
 
 body, .todolist, .todolist input, .todolist li {
-  font-family: "Lora", serif;
+  font-family: "Helvetica", serif;
   
 }
 
 body {
   box-sizing: border-box;
-  background-color: #d2f2f4;
+  height:1000px;
+  background-image:linear-gradient(rgb(91,177,251),rgb(67,144,240));
+  background-repeast: no-repeat;
 }
 
 .todolist {
   text-align: center;
   border-radius: 5px;
-  background-color: #f7f6f4;
+  background-color: rgb(252,252,252);
   margin: auto; 
   border: 1px #f7f6f4 solid;
   font-size: 1em;
-  width: 450px;
-  -webkit-box-shadow: 0px 3px 10px rgba(0,0,0,0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  -moz-box-shadow:    0px 10px 10px rgba(0,0,0,0.8);  /* Firefox 3.5 - 3.6 */
-  box-shadow:         0px 10px 10px rgba(0,0,0,0.8); 
+  width: 376px;
+  -webkit-box-shadow: 0px 10px 10px rgba(0,0,0,0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    0px 1px 10px rgba(0,0,0,0.8);  /* Firefox 3.5 - 3.6 */
+  box-shadow:         0px 15px 10px rgba(0,0,0,0.8); 
 }
 
 .todolist ul{
@@ -41,13 +43,13 @@ body {
 }*/
 
 .todo_text {
-  width: 380px;
+  width: 305px;
   margin-left: 10px;
   text-align: left;
   font-size: 1em;
   box-shadow: none;
   border: none;
-  font-family: "Lora";
+  font-family: "Helvetica";
   border-radius: 3px;
   background-color: transparent;
 }
@@ -62,7 +64,9 @@ body {
   font-size: 1.2em;
   font-family: "Lora";
   background-color: white;
-  
+  -webkit-box-shadow: 0px 8px 8px rgba(0,0,0,0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    0px 8px 8px rgba(0,0,0,0.8);  /* Firefox 3.5 - 3.6 */
+  box-shadow:         0px 3px 5px rgba(0,0,0,0.2); 
 }
 
 .todo_update_input {
@@ -83,6 +87,39 @@ body {
 
 .todo_update{ 
   visibility: hidden;
+}
+
+.add_todo_btn {
+  border: none;
+  width:70px;
+  height:70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+  background-image:linear-gradient(rgb(91,177,251),rgb(67,144,240));
+  -webkit-box-shadow: 0px 10px 10px rgba(0,0,0,0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    0px 1px 10px rgba(0,0,0,0.8);  /* Firefox 3.5 - 3.6 */
+  box-shadow:         0px 5px 10px rgba(0,0,0,0.8); 
+  position: relative;
+}
+
+.add_todo_btn:before,
+.add_todo_btn:after{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+}
+.add_todo_btn:before,
+.add_todo_btn:after {
+    background:white;
+   }
+.add_todo_btn:before{
+    width: 2px;
+    margin: 16px auto;
+}
+.add_todo_btn:after{
+    margin: auto 16px;
+    height: 2px;
+    box-shadow: none;
 }
 
 .circle{
