@@ -8,6 +8,7 @@ services:
       - "443:443"
     networks:
       - todo_app
+      - backend  
       
   node-express:
     build:
@@ -15,8 +16,11 @@ services:
     image: todo/express
     ports:
       - "8080:8080"
+    environment:
+      WAIT_HOSTS: mongo:27017  
     networks:
       - todo_app
+      - backend
 
   node-react:
     build:
@@ -29,6 +33,20 @@ services:
     networks:
       - todo_app
 
+  mongo:
+    image: mongo
+    volumes:
+      - ./backend/data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+    restart: always
+    hostname: mongo
+    command: mongod --noauth --smallfiles
+      
 networks:
   todo_app:
+    driver: bridge
+  backend:
     driver: bridge

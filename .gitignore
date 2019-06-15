@@ -1,4 +1,4 @@
-# Logs
+A# Logs
 logs
 *.log
 npm-debug.log*
@@ -62,3 +62,6 @@ typings/
 
 # ds store
 .DS_Store
+
+# mongodb volume
+/backend/data

@@ -59,7 +59,7 @@ export const TodoList = props => {
 
     const selectTodo = (event, id) => {
         event.preventDefault();
-        let index = todos.findIndex(todo => todo.id === id);
+        let index = todos.findIndex(todo => todo._id === id);
         setSelected(id);
         setNewTodo(todos[index].title);
 
@@ -145,11 +145,11 @@ export const TodoList = props => {
             <div>
                 <ul>
                     {todos.map((todo) => (
-                        <li key={todo.id}>
+                        <li key={todo._id}>
                             <ToDo 
                                 title={todo.title} 
-                                key={todo.id} 
-                                id={todo.id}
+                                key={todo._id} 
+                                id={todo._id}
                                 selected={selected}
                                 deleteTodo={deleteTodo}
                                 selectTodo={selectTodo}
