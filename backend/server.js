@@ -88,12 +88,11 @@ app.delete('/api/v1/todos/:id', function(req, res) {
         if (err) res.status(404, 'task not found').send();
         res.status(200).json({"message":"deleted"});
     });
-
 });
    
 app.use(express.static(path_public));
 
-app.use('/', router);
+//app.use('/', router);
 
 app.listen(PORT, HOST);
 console.log(`Running on HTTP://${HOST}:${PORT}`);

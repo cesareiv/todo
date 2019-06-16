@@ -22,4 +22,4 @@ RUN chmod +x /wait
 
 CMD /wait && npm start
 
-#CMD [ "npm", "start" ]
+
