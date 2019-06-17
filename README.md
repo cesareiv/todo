@@ -1,5 +1,8 @@
 ## todo - by Richard Hunter
-simple todo app using Docker containers
+simple todo app using node.js and Docker containers
+Frontend: React JS
+API: Express
+DB: MongoDB
 
 ## To Build
 ```bash
