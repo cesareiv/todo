@@ -1,4 +1,18 @@
-# todo
-simple todo app using containerized node.js
+## todo - by Richard Hunter
+simple todo app using Docker containers
 
-Express backend, React frontend
+## To Build
+```bash
+docker-compose build
+```
+
+## To Run (foreground - requires CRTL+C)
+```bash
+docker-compose up
+```
+
+## To access the front end web content
+* http://localhost
+
+
+

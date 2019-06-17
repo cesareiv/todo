@@ -18,6 +18,7 @@ ARG PRODUCTION=false
 
 RUN yarn install --production=${PRODUCTION}
 
+
 # bundle src
 COPY public/ /app/todo-app/public
 COPY src/ /app/todo-app/src
