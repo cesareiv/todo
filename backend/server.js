@@ -1,3 +1,7 @@
+/***
+server.js -- 2019 Richard Hunter
+***/
+
 'use strict';
 
 // import modules

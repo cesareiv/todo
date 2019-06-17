@@ -1,5 +1,5 @@
 //COPYRIGHT 2019 RICHARD HUNTER
-//GNU LICENSE
+//GNU PUBLIC LICENSE 3.0
 
 import React, { useState, useEffect, useRef } from 'react';
 
