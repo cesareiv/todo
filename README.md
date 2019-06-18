@@ -20,5 +20,10 @@ docker-compose up
 ## To access the front end web content
 * http://localhost
 
+## To use
+*Add a task using the text input and big button
+*Edit a task by clicking the task label and typing, hit 'enter' to submit changes
+*Delete/Complete a task by clicking the "X" button to the right of the label
+*Datastore is persistent
 
 
