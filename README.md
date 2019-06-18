@@ -2,7 +2,7 @@
 simple todo app using node.js and Docker containers
 ## Frontend
 React JS
-## API
+## API (CRUD)
 Express
 ## Datastore
 MongoDB
