@@ -1,11 +1,8 @@
-## todo - by Richard Hunter
-simple todo app using node.js and Docker containers
-## Frontend
-React JS
-## API (CRUD)
-Express
-## Datastore
-MongoDB
+# Todo by 2003
+A simple CRUD todo webapp using node.js and Docker containers. React JS frontend, Express backend and Mongo DB for persistent storage.
+
+## Getting Started
+You will need Docker Desktop installed to run this app. Defaults to a development enviornment. Visit https://www.docker.com/ to get started there.
 
 ## To Build
 ```bash
