@@ -1,7 +1,7 @@
 ## todo - by Richard Hunter
 simple todo app using node.js and Docker containers
 ## Frontend
-Frontend: React JS
+React JS
 ## API
 Express
 ## Datastore
