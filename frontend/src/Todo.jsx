@@ -165,11 +165,11 @@ export const TodoList = props => {
             <div>
                 <div>        
                     {selected===0 && 
-                    <form onSubmit={e => {
+                    <form className="todo_form" onSubmit={e => {
     	                e.preventDefault();
                         createTodo(newTodo);
                     }}>
-                        <input placeholder="Task" value={newTodo} ref={textInput} onChange={handleChange}/>
+                        <input placeholder="Task" className="todo_new_input" value={newTodo} ref={textInput} onChange={handleChange}/>
                         <button type="submit" className="add_todo_btn" />
                     </form>
                     }
