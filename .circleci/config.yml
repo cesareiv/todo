@@ -15,11 +15,7 @@ workflows:
   version: 2.1
   docker_build_test:
     jobs:
-      - flask_docker_build
-      - redis_docker_build
-      - node_docker_build
-      - nginx_docker_build
-      - redis_commander_docker_build
+      - docker_build
 #  unit_test:
 #    jobs:
 #      - backend_api_tests
