@@ -1,15 +1,29 @@
-# Use the latest 2.1 version of CircleCI pipeline processing engine, see https://circleci.com/docs/2.0/configuration-reference/
+A# Use the latest 2.1 version of CircleCI pipeline processing engine, see https://circleci.com/docs/2.0/configuration-reference/
 version: 2.1
-
-# Use a package of configuration called an orb, see https://circleci.com/docs/2.0/orb-intro/
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.3.1
-
-# Orchestrate or schedule a set of jobs, see https://circleci.com/docs/2.0/workflows/
+jobs:
+  docker_build:
+    machine: true
+    steps:
+      - checkout
+      - run: docker-compose build
+#  backend_api_tests:
+#    machine: true      
+#    steps:
+#      - checkout
+#      - run: ./backend/run_backend_tests.sh
 workflows:
-  # Name the workflow "Welcome"
-  Welcome:
-    # Run the welcome/run job in its own container
+  version: 2.1
+  docker_build_test:
     jobs:
-      - welcome/run
+      - flask_docker_build
+      - redis_docker_build
+      - node_docker_build
+      - nginx_docker_build
+      - redis_commander_docker_build
+#  unit_test:
+#    jobs:
+#      - backend_api_tests
+
+
+
+      
