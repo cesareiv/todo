@@ -6,10 +6,14 @@
     "author": "Richard Hunter",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js"
+        "start": "node server.js",
+        "test": "mocha"
     },
     "dependencies": {
         "express": "^4.16.1",
-        "mongoose": "^5.5.15"
+        "mongoose": "^5.5.15",
+        "mocha": "^6.1.4",
+        "request": "^2.88.0",
+        "chai": "^4.2.0"
     }
 }
