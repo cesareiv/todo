@@ -64,6 +64,15 @@ app.get('/api/v1/todos', function(req, res) {
     });
 });
 
+// get a todo
+app.get('/api/v1/todos/:id', function(req, res) {
+    let TaskId = req.params.id;
+    ToDo.findById(TaskId, function(err, todo) {
+        if (err) return next(err);
+        res.status(200).json(todo);
+    });
+});
+
 // post a todo
 app.post('/api/v1/todos', function(req, res) {
     let newTaskTitle = req.body.title;
@@ -89,14 +98,20 @@ app.put('/api/v1/todos/:id', function(req, res) {
 app.delete('/api/v1/todos/:id', function(req, res) {
     let TaskId = req.params.id;
     ToDo.findByIdAndRemove(TaskId, function(err) {
-        if (err) res.status(404, 'task not found').send();
+        if (err) res.status(404, "task not found").send();
         res.status(200).json({"message":"deleted"});
     });
 });
    
 app.use(express.static(path_public));
 
-//app.use('/', router);
+// start server
+app.listen(PORT, HOST, function() {
+    app.emit("appStarted");
+    console.log(`Running on HTTP://${HOST}:${PORT}`);
+});
 
-app.listen(PORT, HOST);
-console.log(`Running on HTTP://${HOST}:${PORT}`);
+
+
+// export app for use in test suite
+exports = module.exports = app;

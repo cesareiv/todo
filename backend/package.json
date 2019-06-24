@@ -7,7 +7,7 @@
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
-        "test": "mocha"
+        "test": "mocha --delay ./test/test.js"
     },
     "dependencies": {
         "express": "^4.16.1",
