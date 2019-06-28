@@ -1,6 +1,5 @@
-let mongoose = requre('mongoose');
+let mongoose = require('mongoose');
 let ToDo = require('../models/todo');
-
 
 /*
  * GET /todo - retrieve all todos
@@ -8,45 +7,55 @@ let ToDo = require('../models/todo');
 function getTodos(req, res) {
     ToDo.find(function(err, todos) {
         if (err) res.send(err);
-        res.json(todos);
+        res.status(200).json(todos);
     });
 };
 
-// get a todo
-app.get('/api/v1/todos/:id', function(req, res) {
+/*
+ * GET /todo/:id - retrieve a todo by id
+*/
+function getTodo(req, res) {
     let TaskId = req.params.id;
     ToDo.findById(TaskId, function(err, todo) {
-        if (err) return next(err);
+        if (err) res.send(err);
         res.status(200).json(todo);
     });
-});
+};
 
 // post a todo
-app.post('/api/v1/todos', function(req, res) {
+function createTodo(req, res) {
     let newTaskTitle = req.body.title;
     let newTask = new ToDo({title: newTaskTitle});
     newTask.save(function(err, todo) {
-        if (err) return next(err);
+        if (err) res.send(err);
         console.log("saved task! %s with id: %s", todo.title, todo._id);
-        res.status(201).json(todo);
+        res.json(todo);
     });
-});
+};
 
 // update a todo
-app.put('/api/v1/todos/:id', function(req, res) {
+function updateTodo(req, res) {
     let TaskId = req.params.id;
     let taskTitle = req.body.title;
     ToDo.findByIdAndUpdate(TaskId, {title: taskTitle}, function(err, todo) {
-        if (err) res.status(404, 'task not found').send();
-        res.status(204).json(todo);
+        if (err) res.send(err);
+        res.json(todo);
     });  
-});
+};
 
 // delete a todo
-app.delete('/api/v1/todos/:id', function(req, res) {
+function deleteTodo(req, res) {
     let TaskId = req.params.id;
     ToDo.findByIdAndRemove(TaskId, function(err) {
-        if (err) res.status(404, "task not found").send();
-        res.status(200).json({"message":"deleted"});
+        if (err) res.send(err);
+        res.json({"message":"deleted"});
     });
-});
+};
+
+// delete all todos
+function clearTodos(req, res) {
+    ToDo.deleteMany({}, (err) => {
+        if (err) res.send(err);
+        res.status(204).json({'message':'todos deleted'});
+    });
+};

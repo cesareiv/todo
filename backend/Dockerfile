@@ -1,5 +1,4 @@
 FROM node:8
-
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -22,7 +21,4 @@ RUN chmod +x /wait
 
 CMD /wait && npm test
 #CMD /wait && npm start
-
-
-
 

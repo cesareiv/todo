@@ -14,7 +14,7 @@ const PORT = 8080;
 const DBPORT = 27017;
 const HOST = '0.0.0.0';
 
-const app = express();
+const app = module.exports = express();
 const router = express.Router();
 
 const path_images = __dirname + '/images/';
@@ -37,9 +37,17 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // define schema
 const ToDoSchema = new mongoose.Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true,
+        minlength: 1
+    },
     completed: Boolean
 });
+
+//ToDoSchema.pre('save', function(err, doc, next) {
+//    
+//});
 
 // create mongo db model
 const ToDo = mongoose.model('ToDo', ToDoSchema);
@@ -55,11 +63,19 @@ app.get('/api/v1/express', (req, res) => {
     res.send({ express: 'hello world' });
 });
 
+// clear all todos
+app.delete('/api/v1/todos', function(req, res) {
+    ToDo.deleteMany({}, (err) => {
+        if (err) res.status(400).send(err);
+        res.status(200).json({'message':'todos deleted'});
+    });
+});
+
 // CRUD functions
 // get all todos
 app.get('/api/v1/todos', function(req, res) {
     ToDo.find(function(err, todos) {
-        if (err) return next(err);
+        if (err) res.status(404).send(err);
         res.status(200).json(todos);
     });
 });
@@ -68,7 +84,7 @@ app.get('/api/v1/todos', function(req, res) {
 app.get('/api/v1/todos/:id', function(req, res) {
     let TaskId = req.params.id;
     ToDo.findById(TaskId, function(err, todo) {
-        if (err) return next(err);
+        if (err) res.status(404).send(err);
         res.status(200).json(todo);
     });
 });
@@ -77,8 +93,8 @@ app.get('/api/v1/todos/:id', function(req, res) {
 app.post('/api/v1/todos', function(req, res) {
     let newTaskTitle = req.body.title;
     let newTask = new ToDo({title: newTaskTitle});
-    newTask.save(function(err, todo) {
-        if (err) return next(err);
+    newTask.save(function(err, todo) {        
+        if (err) res.status(400).send(err);
         console.log("saved task! %s with id: %s", todo.title, todo._id);
         res.status(201).json(todo);
     });
@@ -89,8 +105,9 @@ app.put('/api/v1/todos/:id', function(req, res) {
     let TaskId = req.params.id;
     let taskTitle = req.body.title;
     ToDo.findByIdAndUpdate(TaskId, {title: taskTitle}, function(err, todo) {
-        if (err) res.status(404, 'task not found').send();
+        if (err) res.status(404, 'task not found').send(err);
         res.status(204).json(todo);
+        console.log(todo);
     });  
 });
 
@@ -98,20 +115,22 @@ app.put('/api/v1/todos/:id', function(req, res) {
 app.delete('/api/v1/todos/:id', function(req, res) {
     let TaskId = req.params.id;
     ToDo.findByIdAndRemove(TaskId, function(err) {
-        if (err) res.status(404, "task not found").send();
+        if (err) res.status(404, "task not found").send(err);
         res.status(200).json({"message":"deleted"});
     });
 });
    
 app.use(express.static(path_public));
 
-// start server
-app.listen(PORT, HOST, function() {
-    app.emit("appStarted");
+
+// start server and emit event for test suite
+app.server = app.listen(PORT, HOST, function() {
     console.log(`Running on HTTP://${HOST}:${PORT}`);
+    let emitStart = setInterval(()=> {
+        let connected = app.emit("appStarted");
+        if (connected == true){
+            clearInterval(emitStart);
+        }
+    }, 1000);
 });
 
-
-
-// export app for use in test suite
-exports = module.exports = app;

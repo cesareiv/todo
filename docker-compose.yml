@@ -1,8 +1,8 @@
 version: '3'
 services:
   nginx:
-    build: nginx
-    image: todo/nginx
+    build: nginx/
+    image: todo/nginx:${GIT_COMMIT_NGINX}
     ports:
       - "80:80"
       - "443:443"
@@ -12,8 +12,8 @@ services:
       
   node-express:
     build:
-      context: backend
-    image: todo/express
+      context: backend/
+    image: todo/express:${GIT_COMMIT_EXPRESS}
     ports:
       - "8080:8080"
     environment:
@@ -24,8 +24,8 @@ services:
 
   node-react:
     build:
-      context: frontend
-    image: todo/react
+      context: frontend/
+    image: todo/react:${GIT_COMMIT_REACT}
     ports:
       - "3000:3000"
     volumes:

@@ -2,8 +2,8 @@
 
 DIR=$(dirname "$0")
 
-#export GIT_COMMIT_MONGO=$(git log -1 --pretty=%h ${DIR}/mongo)
-#export GIT_COMMIT_EXPRESS=$(git log -1 --pretty=%h ${DIR}/express)
+#export GIT_COMMIT_MONGO=$(git log -1 --pretty=%h ${DIR})
+export GIT_COMMIT_EXPRESS=$(git log -1 --pretty=%h ${DIR})
 
 # default the architecture to ""                                                                                            
 if [ -z $ARCH ];
