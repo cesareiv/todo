@@ -41,6 +41,28 @@ describe('Todos', () => {
                 done();
             });
         });
+        it('should GET a single todo', function(done) {
+            // first create a new todo
+            request.post('http://0.0.0.0:8080/api/v1/todos', {
+                json : {
+                    'title' : "Some task"
+                }
+            }, function(err, res, body) {
+                let todo_id = body._id;
+                request.get(`http://0.0.0.0:8080/api/v1/todos/${todo_id}`, function(err, res, body) {
+                    let title = JSON.parse(body).title;
+                    expect(title).to.equal("Some task");
+                    expect(res.statusCode).to.equal(200);
+                    done();
+                });
+            });
+        });
+        it('should not GET a do todo that is not there', function(done) {
+            request.get('http://0.0.0.0:8080/api/v1/todos/123', function(err, res, body) {
+                expect(res.statusCode).to.equal(404);
+                done();
+            });
+        });
     });
 
     // test POST 
@@ -49,6 +71,17 @@ describe('Todos', () => {
             url: 'http://0.0.0.0:8080/api/v1/todos',
             headers: 'Accept: application/json'
         };
+        it('should not POST a todo with no title', function(done) {
+            request.post('http://0.0.0.0:8080/api/v1/todos', {
+                json: {
+                    no_title: 'no title'
+                }
+            }, function(err, res, body){
+                expect(res.statusCode).to.equal(400);
+                done();
+            });
+        });
+        
         it('should POST a new todo', function(done) {
             request.post('http://0.0.0.0:8080/api/v1/todos', {
                 json: {
@@ -75,6 +108,7 @@ describe('Todos', () => {
             });
         });
         it('should DELETE a single todo', function(done) {
+            // first create a new todo
             request.post('http://0.0.0.0:8080/api/v1/todos', {
                 json : {
                     'title' : "Some other task"
@@ -97,23 +131,33 @@ describe('Todos', () => {
             url: 'http://0.0.0.0:8080/api/v1/todos',
             headers: 'Accept: application/json'
         };
-   
+        it('should not PUT a todo that is not there', function(done) {
+            request.put('http://0.0.0.0:8080/api/v1/todos/123', {
+                json : {
+                    'title' : 'Changed task'
+                }
+            }, function(err, res, body) {
+                expect(res.statusCode).to.equal(404);
+                done();
+            });
+        });
         it('should PUT-update a todo', function(done) {
+            // first create a todo
             request.post('http://0.0.0.0:8080/api/v1/todos', {
                 json : {
                     'title' : "Fake task"
                 }
             }, function(err, res, body) {
-                    let todo_id = body._id;
-                    request.put(`http://0.0.0.0:8080/api/v1/todos/${todo_id}`, {
-                        json : {
-                            'title' : 'Changed task'
-                        }
-                    }, function( err, res, body) {
-                        expect(res.statusCode).to.equal(204);
-                        done();
-                    });
-           
+                // we need new todos id to address it
+                let todo_id = body._id;
+                request.put(`http://0.0.0.0:8080/api/v1/todos/${todo_id}`, {
+                    json : {
+                        'title' : 'Changed task'
+                    }
+                }, function(err, res, body) {
+                    expect(res.statusCode).to.equal(204);
+                    done();
+                }); 
             });
         });
     });
@@ -122,8 +166,8 @@ describe('Todos', () => {
                       
     
 // spin express service down after completed tests
-after(function(done) {
-    app.server.close(()=>console.log("tests completed, server shutown"));
-    done();
-});
+//after(function(done) {
+//    app.server.close(()=>console.log("tests completed, server shutown"));
+//    done();
+//});
 
