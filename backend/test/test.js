@@ -27,8 +27,7 @@ describe('Todos', () => {
             done();
         });
     });
-    
-    
+
     // test GET
     describe('GET /api/v1/todos', function(){
         let options = {
@@ -65,7 +64,7 @@ describe('Todos', () => {
         });
     });
 
-    // test POST 
+    // test POST
     describe('POST /api/v1/todos', function(){
         let options = {
             url: 'http://0.0.0.0:8080/api/v1/todos',
@@ -81,7 +80,7 @@ describe('Todos', () => {
                 done();
             });
         });
-        
+
         it('should POST a new todo', function(done) {
             request.post('http://0.0.0.0:8080/api/v1/todos', {
                 json: {
@@ -121,9 +120,7 @@ describe('Todos', () => {
                 });
             });
         });
-    });                           
-                       
-                        
+    });
 
     // test PUT
     describe('PUT /api/v1/todos/:id', function(){
@@ -157,17 +154,15 @@ describe('Todos', () => {
                 }, function(err, res, body) {
                     expect(res.statusCode).to.equal(204);
                     done();
-                }); 
+                });
             });
         });
     });
 });
-                                
-                      
-    
-// spin express service down after completed tests
-//after(function(done) {
-//    app.server.close(()=>console.log("tests completed, server shutown"));
-//    done();
-//});
 
+
+// spin express service down after completed tests
+after(function(done) {
+    app.server.close(()=>console.log("tests completed, server shutown. Ctrl-C to exit."));
+        done();
+});

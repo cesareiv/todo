@@ -17,7 +17,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      WAIT_HOSTS: mongo:27017  
+      WAIT_HOSTS: mongo:27017
+      WAIT_SLEEP_INTERVAL: 2
+      WAIT_HOSTS_TIMEOUT: 60
+      WAIT_AFTER_HOSTS: 1
+    command: sh -c "/wait && npm start"  
     networks:
       - todo_app
       - backend

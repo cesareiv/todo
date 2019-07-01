@@ -1,4 +1,4 @@
-FROM node:8-stretch
+FROM node:8
 
 # create app directory
 WORKDIR /app
@@ -17,7 +17,6 @@ COPY package.json /app/todo-app/package.json
 ARG PRODUCTION=false
 
 RUN yarn install --production=${PRODUCTION}
-
 
 # bundle src
 COPY public/ /app/todo-app/public

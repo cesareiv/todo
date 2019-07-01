@@ -21,9 +21,9 @@ services:
       - "8080:8080"
     environment:
       WAIT_HOSTS: mongo:27017
-    #command: ["./node_modules/mocha/bin/mocha"]
     networks:
-      - backend-test      
+      - backend-test
+    command: sh -c "/wait && npm test && npm stop"
       
 networks:
   backend-test:
