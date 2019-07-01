@@ -29,6 +29,9 @@ then
     # kill the containers passed in, restart them and rebuild
     docker-compose kill "${@:2}"
     docker-compose up -d --no-deps --build "${@:2}"
+elif [ "$1" == "test" ]
+then
+     docker-compose -f ./backend/tests.yml up --build
 else
     docker-compose "$@"
 fi

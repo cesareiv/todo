@@ -6,16 +6,21 @@ You will need Docker Desktop installed to run this app. Defaults to a developmen
 
 ## To Build
 ```bash
-docker-compose build
+./compose.sh build
 ```
 
 ## To Run (foreground - requires CRTL+C)
 ```bash
-docker-compose up
+./compose.sh up
 ```
 
 ## To access the front end web content
 * http://localhost
+
+## To Run tests (Mocha)
+```bash
+./compose.sh test
+```
 
 ## To use
 Add a task using the text input and big button
