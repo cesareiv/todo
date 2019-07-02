@@ -23,7 +23,7 @@ services:
       WAIT_HOSTS: mongo:27017
     networks:
       - backend-test
-    command: sh -c "/wait && npm test && npm stop"
+    command: sh -c "/wait && npm test"
       
 networks:
   backend-test:
