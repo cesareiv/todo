@@ -5,20 +5,20 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker-compose build
-#  backend_api_tests:
-#    machine: true      
-#    steps:
-#      - checkout
-#      - run: ./backend/run_backend_tests.sh
+      - run: ./compose.sh build
+  backend_api_tests:
+    machine: true      
+    steps:
+      - checkout
+      - run: ./compose.sh test
 workflows:
   version: 2.1
   docker_build_test:
     jobs:
       - docker_build
-#  unit_test:
-#    jobs:
-#      - backend_api_tests
+  unit_test:
+    jobs:
+      - backend_api_tests
 
 
 
