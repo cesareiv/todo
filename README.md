@@ -3,6 +3,8 @@
 # Todo by 2003
 A simple CRUD todo webapp using node.js and Docker containers. React JS frontend, Express backend and Mongo DB for persistent storage. Circle CI integration.
 
+![Todo2003](https://www.dropbox.com/s/6icp1g8qc9k62p8/todo2013.gif?dl=0)
+
 ## Getting Started
 You will need Docker Desktop installed to run this app. Defaults to a development enviornment. Visit https://www.docker.com/ to get started there.
 
