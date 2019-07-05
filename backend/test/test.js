@@ -163,6 +163,8 @@ describe('Todos', () => {
 
 // spin express service down after completed tests
 after(function(done) {
-    app.server.close(()=>console.log("tests completed, server shutown. Ctrl-C to exit."));
-        done();
+    app.server.close( () => {
+        console.log("tests completed, server shutown");
+    });
+    done();
 });

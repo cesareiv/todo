@@ -48,14 +48,11 @@ const ToDoSchema = new mongoose.Schema({
 // create mongo db model
 const ToDo = mongoose.model('ToDo', ToDoSchema);
 
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 app.use(express.static(path_public));
-
-
 
 // test route
 app.get('/api/v1/express', (req, res) => {
@@ -92,7 +89,7 @@ app.get('/api/v1/todos/:id', function(req, res) {
 app.post('/api/v1/todos', function(req, res) {
     let newTaskTitle = req.body.title;
     let newTask = new ToDo({title: newTaskTitle});
-    newTask.save(function(err, todo) {        
+    newTask.save(function(err, todo) {
         if (err) res.status(400).send(err);
         else res.status(201).json(todo);
     });
@@ -105,7 +102,7 @@ app.put('/api/v1/todos/:id', function(req, res) {
     ToDo.findByIdAndUpdate(TaskId, {title: taskTitle}, function(err, todo) {
         if (err) res.status(404, 'task not found').send(err);
         else res.status(204).json(todo);
-    });  
+    });
 });
 
 // delete a todo
@@ -116,11 +113,10 @@ app.delete('/api/v1/todos/:id', function(req, res) {
         else res.status(200).json({"message":"deleted"});
     });
 });
-   
+
 app.use(function(req, res, err, next) {
     res.status(404).send('not found');
 });
-
 
 // start server and emit event for test suite
 app.server = app.listen(PORT, HOST, function() {
@@ -132,4 +128,3 @@ app.server = app.listen(PORT, HOST, function() {
         }
     }, 1000);
 });
-
