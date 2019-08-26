@@ -1,8 +1,10 @@
-/***
-server.js -- 2019 Richard Hunter
-***/
-
 'use strict';
+
+/**
+* server.js
+* @fileoverview configures Express server and routes for Todo by 2003 
+* @author rm.hunter@gmail.com (Richard Hunter)
+**/
 
 // import modules
 const express = require('express');
@@ -50,16 +52,13 @@ const ToDo = mongoose.model('ToDo', ToDoSchema);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
 // parse application/json
 app.use(bodyParser.json());
 app.use(express.static(path_public));
 
-// test route
-app.get('/api/v1/express', (req, res) => {
-    res.send({ express: 'hello world' });
-});
+/* CRUD ROUTES */
 
-// CRUD functions
 // clear all todos
 app.delete('/api/v1/todos', function(req, res) {
     ToDo.deleteMany({}, (err) => {
@@ -114,6 +113,7 @@ app.delete('/api/v1/todos/:id', function(req, res) {
     });
 });
 
+// 404 catch-all
 app.use(function(req, res, err, next) {
     res.status(404).send('not found');
 });
