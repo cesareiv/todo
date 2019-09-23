@@ -14,10 +14,11 @@ CMD ["start"]
 
 # install dependencies
 COPY package.json /app/todo-app/package.json
-ARG PRODUCTION=false
+ARG PRODUCTION
 
-RUN yarn install --production=${PRODUCTION}
+RUN yarn install --production='false'
 
 # bundle src
 COPY public/ /app/todo-app/public
 COPY src/ /app/todo-app/src
+

@@ -8,7 +8,21 @@ services:
       - "443:443"
     networks:
       - todo_app
-      - backend  
+      - backend
+      
+  node-react:
+    build:
+      context: frontend/
+      args:
+        production: "$PRODUCTION"
+    image: todo/react:${GIT_COMMIT_REACT}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/todo-app/src:ro
+      - ./frontend/build:/app/todo-app/build
+    networks:
+      - todo_app
       
   node-express:
     build:
@@ -25,18 +39,7 @@ services:
     networks:
       - todo_app
       - backend
-
-  node-react:
-    build:
-      context: frontend/
-    image: todo/react:${GIT_COMMIT_REACT}
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend/src:/app/todo-app/src:ro
-    networks:
-      - todo_app
-
+      
   mongo:
     image: mongo
     volumes:

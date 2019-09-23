@@ -19,6 +19,7 @@ if [ -z $PRODUCTION ]
 then
     export PRODUCTION="false"
 fi
+    
 
 # if the operation is to spin down, destroy all volumes
 if [ "$1" == "down" ]
@@ -31,7 +32,13 @@ then
     docker-compose up -d --no-deps --build "${@:2}"
 elif [ "$1" == "test" ]
 then
-     docker-compose -f ./backend/tests.yml up --build
+    docker-compose -f ./backend/tests.yml up --build
+elif [ "$1" == "production" ]
+then
+    # overide docker-compose.yml with production.yml
+    echo "PRODUCTION IS TRUE"
+    export PRODUCTION="true"
+    docker-compose -f docker-compose.yml -f production.yml up --build
 else
     docker-compose "$@"
 fi

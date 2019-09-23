@@ -1,0 +1,13 @@
+version: '3'
+services:
+  node-react:
+    build:
+      dockerfile: DockerfileProduction
+    environment:
+      PRODUCTION: "true"
+    image: todo/react-production:${GIT_COMMIT_REACT}
+  
+  node-express:
+    build:
+      dockerfile: DockerfileProduction
+    image: todo/express-production:${GIT_COMMIT_REACT}

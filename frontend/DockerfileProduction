@@ -1,0 +1,44 @@
+FROM node:8 as builder
+
+# create app directory
+WORKDIR /app
+
+# run create react-app
+RUN yarn create react-app todo-app
+
+# install dependencies
+WORKDIR /app/todo-app
+COPY package.json /app/todo-app/package.json
+RUN yarn install --production="true"
+
+# bundle src
+COPY public/ /app/todo-app/public
+COPY src/ /app/todo-app/src
+
+# build static production version of react app
+RUN yarn build
+
+
+###################################################
+# create clean node build to serve static content #
+FROM node:8.15.1-alpine
+
+# working directory
+WORKDIR usr/src/app
+
+# install dependencies
+COPY server/package*.json ./
+RUN npm ci --only=production
+
+# bundle source
+COPY ./server .
+
+# copy static files from builder
+COPY --from=builder /app/todo-app/build ./build
+
+# expose port 3000
+EXPOSE 3000
+
+# start server.js
+CMD npm start
+

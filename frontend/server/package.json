@@ -1,0 +1,14 @@
+{
+    "name": "todo_app_fe",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Node.js Docker",
+    "author": "Richard Hunter",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.16.1"
+    }
+}
