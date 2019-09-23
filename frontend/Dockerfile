@@ -21,4 +21,3 @@ RUN yarn install --production='false'
 # bundle src
 COPY public/ /app/todo-app/public
 COPY src/ /app/todo-app/src
-
