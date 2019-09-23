@@ -6,7 +6,7 @@ A simple CRUD todo webapp using node.js and Docker containers. React JS frontend
 ![Todo2003](todo2013.gif)
 
 ## Getting Started
-You will need Docker Desktop installed to run this app. Defaults to a development enviornment. Visit https://www.docker.com/ to get started there.
+You will need Docker Desktop installed to run this app. Defaults to a development enviornment. Build version possible. Visit https://www.docker.com/ to get started there.
 
 ## To Build
 ```bash
