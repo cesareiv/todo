@@ -5,9 +5,12 @@ services:
       dockerfile: DockerfileProduction
     environment:
       PRODUCTION: "true"
-    image: todo/react-production:${GIT_COMMIT_REACT}
+    image: cesareiv/todo-app:fe-${GIT_COMMIT_REACT}
   
   node-express:
     build:
-      dockerfile: DockerfileProduction
-    image: todo/express-production:${GIT_COMMIT_REACT}
+      dockerfile: DockerfileProduction  
+    image: cesareiv/todo-app:be-${GIT_COMMIT_EXPRESS}
+
+  nginx:
+    image: cesareiv/todo-app:nginx-${GIT_COMMIT_NGINX}

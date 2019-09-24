@@ -36,9 +36,9 @@ then
 elif [ "$1" == "production" ]
 then
     # overide docker-compose.yml with production.yml
-    echo "PRODUCTION IS TRUE"
+    echo "PRODUCTION BUILD"
     export PRODUCTION="true"
-    docker-compose -f docker-compose.yml -f production.yml up --build
+    docker-compose -f docker-compose.yml -f production.yml "${@:2}"
 else
     docker-compose "$@"
 fi
